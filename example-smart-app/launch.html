@@ -4,53 +4,51 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
-    <!--
-      Temporarily disable cerner-smart-embeddable-lib
-      <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
-    -->
     <title>Example-SMART-App</title>
   </head>
   <body>
-    <!-- Required JS files to enable this page to embed within an MPage -->
-    <!--
-      Temporarily disable cerner-smart-embeddable-lib
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
-      <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
-    -->
+    <div>
+      <h1>Hello powerchart</h1>
+      <p><strong>Launch Code:</strong> <span id="display-launch">Loading...</span></p>
+    </div>
 
-    <!-- FHIR Client JS Library -->
-    <!-- <script src='./lib/js/fhir-client-v0.1.12.js'></script> -->
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
 
-    <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
-    <!-- https://github.com/cerner/fhir-client-cerner-additions -->
     <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
 
-  <!-- <script>
+    <script>
       function getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
         var results = regex.exec(location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-     }
+      }
 
-  var iss    = getUrlParameter('iss');
-  var launch = getUrlParameter('launch');
+      // 1. Get the launch parameter from the URL
+      var launch = getUrlParameter('launch');
 
-  console.log(iss);
-  console.log(launch);  
-  </script>
-    <script>
-      FHIR.oauth2.authorize({
-        'client_id': '3e994b90-fc92-49ac-ad25-11a8f69830cb',
-        'scope':  'patient/Patient.read patient/Observation.read launch online_access openid profile'
-      });
-    </script> -->
-    <div><h1>Hello powerchart</h1></div>
-    <div class="spinner">
-      
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
+      // 2. Print it to the console for debugging
+      console.log("Launch ID:", launch);
+
+      // 3. Update the HTML element with the launch code
+      if (launch) {
+        document.getElementById('display-launch').innerText = launch;
+      } else {
+        document.getElementById('display-launch').innerText = "Not Found";
+      }
+
+      /* Commented out the actual authorization for now 
+        so the page stays open and shows you the code.
+        
+        FHIR.oauth2.authorize({
+          'client_id': '3e994b90-fc92-49ac-ad25-11a8f69830cb',
+          'scope':  'patient/Patient.read patient/Observation.read launch online_access openid profile'
+        });
+      */
+    </script>
   </body>
 </html>
